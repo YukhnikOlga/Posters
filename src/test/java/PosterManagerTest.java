@@ -42,8 +42,26 @@ public class PosterManagerTest {
     }
 
     @Test
-    public void FindLastPostersBeforeLimit() {
+    public void FindLastPostersManagerMoreOfLimit() {
         PosterManager manager = new PosterManager(5);
+
+        manager.addPoster("Бладшот_боевик");
+        manager.addPoster("Вперёд_мультфильм");
+        manager.addPoster("Отель 'Белград'_комедия");
+        manager.addPoster("Джентльмены_боевик");
+        manager.addPoster("Человек-невидимка_ужасы");
+        manager.addPoster("Тролли. Мировой тур_мультфильм");
+        manager.addPoster("Номер один_комедия");
+
+        String[] expected = {"Номер один_комедия", "Тролли. Мировой тур_мультфильм", "Человек-невидимка_ужасы", "Джентльмены_боевик", "Отель 'Белград'_комедия"};
+        String[] actual = manager.findLastPosters();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void FindLastPostersManagerLessOfLimit() {
+        PosterManager manager = new PosterManager(7);
 
         manager.addPoster("Бладшот_боевик");
         manager.addPoster("Вперёд_мультфильм");
@@ -58,16 +76,15 @@ public class PosterManagerTest {
     }
 
     @Test
-    public void FindLastPostersBeforeCurrentLimit() {
-        PosterManager manager = new PosterManager();
+    public void FindLastPostersManagerEqualLimit() {
+        PosterManager manager = new PosterManager(4);
 
-        manager.addPoster("Бладшот_боевик");
         manager.addPoster("Вперёд_мультфильм");
         manager.addPoster("Отель 'Белград'_комедия");
         manager.addPoster("Джентльмены_боевик");
         manager.addPoster("Человек-невидимка_ужасы");
 
-        String[] expected = {"Человек-невидимка_ужасы", "Джентльмены_боевик", "Отель 'Белград'_комедия", "Вперёд_мультфильм", "Бладшот_боевик"};
+        String[] expected = {"Человек-невидимка_ужасы", "Джентльмены_боевик", "Отель 'Белград'_комедия", "Вперёд_мультфильм"};
         String[] actual = manager.findLastPosters();
 
         Assertions.assertArrayEquals(expected, actual);
@@ -91,4 +108,3 @@ public class PosterManagerTest {
         Assertions.assertArrayEquals(expected, actual);
     }
 }
-
